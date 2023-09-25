@@ -1,7 +1,7 @@
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Duke extends A_Tasks{
+public class Duke extends Tasks{
     private static String LineBreaker = "____________________________________________________________\n";
     private static String Greeting = "Hello! I'm JohnCena\n" + " What can I do for you?";
     private static String Farewell = "Bye. Hope to see you again soon!\n";
@@ -9,7 +9,7 @@ public class Duke extends A_Tasks{
     private static String MsgUnmark = "OK, I've marked this task as not done yet:";
 
     //Level 0. Rename, Greet, Exit
-    public static void Level0() {
+    public void Level0() {
         System.out.println(LineBreaker);
         System.out.println(Greeting);
         System.out.println(LineBreaker);
@@ -17,7 +17,7 @@ public class Duke extends A_Tasks{
         System.out.println(LineBreaker);
     }
 
-    public static void Level1() {
+    public void Level1() {
         Scanner SCAN = new Scanner(System.in);
         System.out.println(LineBreaker);
         System.out.println(Greeting);
@@ -34,7 +34,7 @@ public class Duke extends A_Tasks{
         SCAN.close();
     }
 
-    public static void Level2() {
+    public void Level2() {
         Scanner SCAN = new Scanner(System.in);
         System.out.println(LineBreaker);
         System.out.println(Greeting);
@@ -60,28 +60,24 @@ public class Duke extends A_Tasks{
         SCAN.close();
     }
 
-    public static void Level3()
+    public void Level3()
     {
         Scanner SCAN = new Scanner(System.in);
-        SplitStrings = Level3_Tasks.split("\n",4);
+        currentInput = SCAN.nextLine().trim();
+        SplitStrings = Tasks.getSplitMsg(Level3_Tasks,"\n");
 
         System.out.println(LineBreaker);
         System.out.println("Please type in list to start");
 
         while (true)
         {
-            currentInput = SCAN.nextLine().trim();
-
             SplitInput=currentInput.split(" ",2);
             if (currentInput.equals("list"))
             {
-                for (String S : SplitStrings)
-                {
-                    System.out.println(S);
-                }
+                Tasks.PrintOutMsg(SplitStrings);
                 continue;
             }
-            if (currentInput.contains("mark")||currentInput.startsWith("unmark"))
+            else if (currentInput.contains("mark")||currentInput.startsWith("unmark"))
             {
                 if(currentInput.length()>4)
                 {
@@ -99,14 +95,21 @@ public class Duke extends A_Tasks{
                 }
                 continue;
             }
-            if (currentInput.equals("bye")) {
+            else if (currentInput.equals("bye")) {
                 System.out.println(Farewell);
                 break;
             }
         }
         SCAN.close();
     }
-    public static void main (String[]args)
+    public void Level4()
+    {
+        Scanner SCAN = new Scanner(System.in);
+        Tasks.currentInput=SCAN.nextLine().trim();
+        Tasks Todo = new Tasks();
+        SCAN.close();
+    }
+    public void main (String[]args)
     {
         ///Testing
 //        String Test = "Hello World";
@@ -121,7 +124,8 @@ public class Duke extends A_Tasks{
         //Level0();
         //Level1();
         //Level2();
-        Level3();
+        //Level3();
+        Level4();
 
 
 //        String logo = " ____        _        \n"
