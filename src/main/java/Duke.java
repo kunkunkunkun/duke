@@ -10,6 +10,7 @@ public class Duke extends Tasks{
     private static final String MsgMark = "Nice! I've marked this task as done:";
     private static final String MsgUnmark = "OK, I've marked this task as not done yet:";
 
+    public static ArrayList<Tasks> StoredUserInput = new ArrayList<>();
     public static ArrayList<String> SplitUserInput = new ArrayList<>();
     public static String[] Userinput;
 
@@ -104,19 +105,24 @@ public static ArrayList<String> ConvertStringToArrayList(String Userinput)
     Output.addAll(Arrays.asList(SplitString));
     return Output;
 }
-public static void PrintSplitString(ArrayList<String> Input)
+public static void PrintSplitString(ArrayList<Tasks> Input)
 {
-    //String output="";
-    for(String S:Input)
+    int count =1;//String output="";
+    for(Tasks S:Input)
     {
-        System.out.println(S);
+        System.out.println(count+".["+S.getStatusIcon()+"] "+ S.description);
+        count++;
     };
 }
     public static void main (String[]args)
     {
         //General
+        StoredUserInput.add(new Tasks("read book",false));
+        StoredUserInput.add(new Tasks ("return book",false));
+        StoredUserInput.add(new Tasks("buy book",false));
         System.out.print(LineBreaker);
         System.out.print(Greeting);
+        //StoredUserInput=null;
         Scanner SCAN = new Scanner(System.in);
         String UserInput = "";
         //SplitUserInput=ConvertStringToArrayList(UserInput);
@@ -128,16 +134,35 @@ public static void PrintSplitString(ArrayList<String> Input)
         //System.out.print(Farewell);
         //System.out.println(LineBreaker);
 
-
+        //Level 1&2
         while (true) {
-            UserInput = SCAN.nextLine();
-            //SplitUserInput=ConvertStringToArrayList(UserInput);
-            if (UserInput.contains("bye")) {
+            UserInput = SCAN.nextLine().trim();
+            SplitUserInput=ConvertStringToArrayList(UserInput);
+            int index = 0; // Find which element to mark.unmark
+            if (UserInput.equals("bye")) {
                 System.out.println(Farewell);
                 break;
-            } else {
-                SplitUserInput.add(UserInput);
-                PrintSplitString(SplitUserInput);
+            } else if (UserInput.equals("list"))
+            {
+                System.out.println("Here are the tasks in your list:");
+                PrintSplitString(StoredUserInput);
+            }
+            else if (SplitUserInput.get(0).equals("mark"))
+            {
+                index = Integer.parseInt(SplitUserInput.get(1))-1;
+                StoredUserInput.get(index).isDone=true;
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println("["+StoredUserInput.get(index).getStatusIcon()+"] "+ StoredUserInput.get(index).description);
+            }
+            else if (SplitUserInput.get(0).equals("unmark"))
+            {
+                index = Integer.parseInt(SplitUserInput.get(1))-1;
+                StoredUserInput.get(index).isDone=false;
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println("["+StoredUserInput.get(index).getStatusIcon()+"] "+ StoredUserInput.get(index).description);
+            }else {
+                StoredUserInput.add(new Tasks (UserInput,false));
+                System.out.println("New Item added!!");
                 //System.out.println(UserInput + "\n"); // level 1
                 continue;
             }
