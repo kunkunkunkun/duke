@@ -1,36 +1,53 @@
+import java.util.ArrayList;
+
 public class Tasks
 {
-    public Tasks()
+    public void DoTaskCommand()
     {
-    }
-    public static String Level3_Tasks =
-            "   Here are the tasks in your list:\n" +
-                    "     1.[X] read book\n" +
-                    "     2.[ ] return book\n" +
-                    "     3.[ ] buy bread";
-    public static String Level4_Tasks =
-            "     Here are the tasks in your list:\n" +
-                    "     1.[T][X] read book\n" +
-                    "     2.[D][ ] return book (by: June 6th)\n" +
-                    "     3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)\n" +
-                    "     4.[T][X] join sports club\n" +
-                    "     5.[T][ ] borrow book";
-    public static String currentInput;
-    public static String[] SplitInput = new String[100];
-    public static String[] SplitStrings = new String[100];
 
+    }
+
+    public static String[] getSplitMsg(String TargetMsg,String SpltBy,int splits)
+    {
+        TargetMsg=TargetMsg.trim();
+        return TargetMsg.split(SpltBy,splits);
+    }
     public static String[] getSplitMsg(String TargetMsg,String SpltBy)
     {
         TargetMsg=TargetMsg.trim();
         return TargetMsg.split(SpltBy);
     }
+//    public static ArrayList<String> getArrayListSplitMsg(String TargetMsg, String SpltBy)
+//    {
+//        TargetMsg=TargetMsg.trim();
+//        return TargetMsg.split(SpltBy);
+//    }
+    public static void SplitEventCommand(String[]SplitInput,String InputCommand)
+    {
+        SplitInput=getSplitMsg(InputCommand," ",2);
+    }
 
+    public static String GetEventName(String[] SplitInput)
+    {
+        for (int i =1;i<SplitInput.length;i++)
+        {
+            if(!SplitInput[i].contains("/"))
+            SplitInput[0]+=SplitInput[i];
+        }
+        return SplitInput[0];
+    }
+//    public void test ()
+//    {
+//        System.out.println("This is Tasks");
+//    }
     public static void PrintOutMsg(String[] SplitMsg)
     {
         for (String S : SplitMsg)
         {
             System.out.println(S);
+            //System.out.println("New line!!!!!");
         }
+        //System.out.print("\nNow you have"+ SplitMsg.length +"tasks in the list.\n");
     }
 
 }
