@@ -136,9 +136,9 @@ public static void PrintSplitString(ArrayList<String> Input)
                 System.out.println(Farewell);
                 break;
             } else {
-                //SplitUserInput.add(UserInput);
-                //PrintSplitString(SplitUserInput);
-                System.out.println(UserInput + "\n"); // level 1
+                SplitUserInput.add(UserInput);
+                PrintSplitString(SplitUserInput);
+                //System.out.println(UserInput + "\n"); // level 1
                 continue;
             }
         }
