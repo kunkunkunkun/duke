@@ -12,120 +12,29 @@ public class Duke extends Tasks{
 
     public static ArrayList<Tasks> StoredUserInput = new ArrayList<>();
     public static ArrayList<String> SplitUserInput = new ArrayList<>();
-    public static String[] Userinput;
 
-    //public static String[] SplitStrings = new String[100];
-
-    //public static ArrayList<String> SplitMsg = new ArrayList<>();
-    //public static ArrayList<String> SplitCommand = new ArrayList<>();
-
-//    public static void Level3()
-//    {
-//        Scanner SCAN = new Scanner(System.in);
-//        //Tasks Tsk = new Tasks();
-//        //currentInput = SCAN.nextLine().trim();
-//        SplitStrings = getSplitMsg(Level3_Tasks,"\n",2);
-//        //Tasks Tsk = new Tasks();
-//
-//        System.out.println(LineBreaker);
-//        System.out.println("Please type in list to start");
-//
-//        while (true)
-//        {
-//            currentInput = SCAN.nextLine().trim();
-//            SplitInput=currentInput.split(" ",2);
-//            if (currentInput.equals("list"))
-//            {
-//                PrintOutMsg(SplitStrings);
-//            }
-//            else if (currentInput.contains("mark")||currentInput.startsWith("unmark"))
-//            {
-//                if(currentInput.length()>4)
-//                {
-//                    int index = Integer.parseInt(SplitInput[1]);
-//                    if(currentInput.startsWith("mark")) {
-//                        SplitStrings[index] = SplitStrings[index].replace("[ ]", "[X]");
-//                        System.out.println(MsgMark);
-//                    }
-//                    else {
-//                        SplitStrings[index] = SplitStrings[index].replace("[X]", "[ ]");
-//                        System.out.println(MsgUnmark);
-//                    }
-//                    System.out.println(SplitStrings[index].substring(5).replace(SplitStrings[index].substring(0,2),"  "));
-//
-//                }
-//                continue;
-//            }
-//            else if (currentInput.equals("bye")) {
-//                System.out.println(Farewell);
-//                break;
-//            }
-//        }
-//        SCAN.close();
-//    }
-//    public static void Level4()
-//    {
-//        String EventName;
-//        String[] ByWhen = new String[100];
-//        String[] Event = new String[100];
-//
-//        //SplitMsg=getArrayListSplitMsg(Level4_Tasks,"\n");
-//        System.out.println("Please type in list to start");
-//        Scanner SCAN = new Scanner(System.in);
-//        while (true)
-//        {
-//            currentInput=SCAN.nextLine();
-//            SplitInput=getSplitMsg(currentInput," ",2);
-////            Event = getSplitMsg(SplitInput[0],"/",2);
-////            ByWhen = getSplitMsg(SplitInput[1],"/",2);
-//
-//            switch (SplitInput[0].toUpperCase())
-//            {
-//                case "TODO":
-//                    ToDo Todo = new ToDo();
-//                    Todo.DoTaskCommand(SplitStrings,SplitInput[1]);
-//                    break;
-//                case "DEADLINE":
-//                    break;
-//                case "EVENT":
-//                    break;
-//                case "LIST":
-//                    PrintOutMsg(SplitStrings);
-//                    break;
-//            }
-//        }
-////        //Tasks.currentInput=SCAN.nextLine().trim();
-////        Tasks TodoTask = new ToDo(SCAN.nextLine().trim());
-////        SCAN.close();
-//    }
-public static ArrayList<String> ConvertStringToArrayList(String Userinput)
-{
-    ArrayList<String> Output=new ArrayList<String>();
-    String[] SplitString=Userinput.split(" ");
-    Output.addAll(Arrays.asList(SplitString));
-    return Output;
-}
-public static void PrintSplitString(ArrayList<Tasks> Input)
-{
-    int count =1;//String output="";
-    for(Tasks S:Input)
+    public static void TestCases()
     {
-        System.out.println(count+".["+S.getStatusIcon()+"] "+ S.description);
-        count++;
-    };
-}
+        //level 3
+        //StoredUserInput.add(new Tasks("read book",false));
+        //StoredUserInput.add(new Tasks ("return book",false));
+        //StoredUserInput.add(new Tasks("buy book",false));
+
+        //level 4
+        StoredUserInput.add(new ToDo("read book",true));
+        StoredUserInput.add(new Deadline("return book",false,"June 6th"));
+        StoredUserInput.add(new Event("project meeting ",false,"Aug 6th 2pm","4pm"));
+        StoredUserInput.add(new ToDo("join sports club",true));
+    }
     public static void main (String[]args)
     {
         //General
-        StoredUserInput.add(new Tasks("read book",false));
-        StoredUserInput.add(new Tasks ("return book",false));
-        StoredUserInput.add(new Tasks("buy book",false));
+        TestCases();
         System.out.print(LineBreaker);
         System.out.print(Greeting);
-        //StoredUserInput=null;
+
         Scanner SCAN = new Scanner(System.in);
         String UserInput = "";
-        //SplitUserInput=ConvertStringToArrayList(UserInput);
 
         //Level 0
         //System.out.println(LineBreaker);
@@ -134,37 +43,65 @@ public static void PrintSplitString(ArrayList<Tasks> Input)
         //System.out.print(Farewell);
         //System.out.println(LineBreaker);
 
-        //Level 1&2
+        //Level 1&2&3
         while (true) {
-            UserInput = SCAN.nextLine().trim();
-            SplitUserInput=ConvertStringToArrayList(UserInput);
-            int index = 0; // Find which element to mark.unmark
+            UserInput = SCAN.nextLine().trim(); // Get user input in string
             if (UserInput.equals("bye")) {
                 System.out.println(Farewell);
                 break;
-            } else if (UserInput.equals("list"))
+            }
+            else if (UserInput.equals("list"))
             {
                 System.out.println("Here are the tasks in your list:");
                 PrintSplitString(StoredUserInput);
             }
-            else if (SplitUserInput.get(0).equals("mark"))
+            else if (UserInput.startsWith("mark"))
             {
-                index = Integer.parseInt(SplitUserInput.get(1))-1;
-                StoredUserInput.get(index).isDone=true;
+                String[]SplitMsg = UserInput.split(" ");
+                Tasks Tsk = StoredUserInput.get(Integer.parseInt(SplitMsg[1])-1); //Used for Mark and Unmark.
+                Tsk.isDone=true; //
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println("["+StoredUserInput.get(index).getStatusIcon()+"] "+ StoredUserInput.get(index).description);
+                System.out.println(Tsk.toString());
+
             }
-            else if (SplitUserInput.get(0).equals("unmark"))
+            else if (UserInput.startsWith("unmark"))
             {
-                index = Integer.parseInt(SplitUserInput.get(1))-1;
-                StoredUserInput.get(index).isDone=false;
+                String[]SplitMsg = UserInput.split(" ");
+                Tasks Tsk = StoredUserInput.get(Integer.parseInt(SplitMsg[1])-1); //Used for Mark and Unmark.
+                Tsk.isDone=false;
                 System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println("["+StoredUserInput.get(index).getStatusIcon()+"] "+ StoredUserInput.get(index).description);
-            }else {
-                StoredUserInput.add(new Tasks (UserInput,false));
+                System.out.println(Tsk.toString());
+            }
+            else if (UserInput.startsWith("todo"))
+            {
+                ToDo TD = new ToDo("",false);
+                TD.ConvertStringToArrayList(UserInput);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  "+TD.toString());
+                StoredUserInput.add(TD);
+                System.out.println("Now you have " +StoredUserInput.size()+ " tasks in the list");
+            }
+            else if (UserInput.startsWith("deadline"))
+            {
+                Deadline DL = new Deadline("",false,"");
+                DL.ConvertStringToArrayList(UserInput);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  "+DL.toString());
+                StoredUserInput.add(DL);
+                System.out.println("Now you have " +StoredUserInput.size()+ " tasks in the list");
+            }
+            else if (UserInput.startsWith("event"))
+            {
+                Event Evt = new Event("",false,"","");
+                Evt.ConvertStringToArrayList(UserInput);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  "+Evt.toString());
+                StoredUserInput.add(Evt);
+                System.out.println("Now you have " +StoredUserInput.size()+ " tasks in the list");
+            }
+            else {
+                StoredUserInput.add(new Tasks (UserInput));
                 System.out.println("New Item added!!");
-                //System.out.println(UserInput + "\n"); // level 1
-                continue;
             }
         }
 
