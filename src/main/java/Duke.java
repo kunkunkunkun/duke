@@ -162,13 +162,13 @@ public class Duke extends Tasks{
                     System.out.println("  " + Evt.toString());
                     StoredUserInput.add(Evt);
                     System.out.println("Now you have " + StoredUserInput.size() + " tasks in the list");
-//                } else if (UserInput.startsWith("delete")) {
-//                    String[] SplitMsg = UserInput.split(" ");
-//                    Tasks Tsk = StoredUserInput.get(Integer.parseInt(SplitMsg[1]) - 1); //Used for Mark and Unmark.
-//                    StoredUserInput.remove(Integer.parseInt(SplitMsg[1]) - 1);
-//                    System.out.println(MsgDelete);
-//                    System.out.println(Tsk.toString());
-//                }
+                } else if (UserInput.startsWith("delete")) {
+                    String[] SplitMsg = UserInput.split(" ");
+                    Tasks Tsk = StoredUserInput.get(Integer.parseInt(SplitMsg[1]) - 1); //Used for Mark and Unmark.
+                    StoredUserInput.remove(Integer.parseInt(SplitMsg[1]) - 1);
+                    System.out.println(MsgDelete);
+                    System.out.println(Tsk.toString());
+                }
         }
             catch (DukeException e) {
                 System.out.println("Error: " + e.getMessage());
