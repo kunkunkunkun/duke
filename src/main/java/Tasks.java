@@ -6,6 +6,7 @@ public class Tasks
     protected String description;
     protected boolean isDone;
 
+    protected int SplitStringSize;
     protected String TaskName ="";
 
     public Tasks(){}

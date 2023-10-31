@@ -6,17 +6,27 @@ public class Deadline extends Tasks
     {
         this.description=description;
         this.isDone=isDone;
-        this.TaskName="D";
+        this.TaskName=Enums.D.toString();
         this.by=by;
     }
 
     @Override
     public void ConvertStringToArrayList(String Userinput)
     {
+
         Userinput=Userinput.substring(9).trim(); //get string after Todo
         String[] SplitString=Userinput.split("/by");
-        this.description=SplitString[0].trim();
-        this.by=SplitString[1].trim();
+        this.SplitStringSize=SplitString.length;
+        if (SplitStringSize<2)
+        {
+            this.description=SplitString[0].trim();
+            this.by="";
+        }
+        else
+        {
+            this.description=SplitString[0].trim();
+            this.by=SplitString[1].trim();
+        }
     }
     @Override
     public String toString()

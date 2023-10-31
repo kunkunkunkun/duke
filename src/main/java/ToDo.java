@@ -8,7 +8,7 @@ public class ToDo extends Tasks
     {
         this.description=description;
         this.isDone=isDone;
-        this.TaskName="T";
+        this.TaskName=Enums.T.toString();
     }
     ToDo()
     {

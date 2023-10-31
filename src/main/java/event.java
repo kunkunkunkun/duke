@@ -6,7 +6,7 @@ public class Event extends Tasks
     {
         this.description=description;
         this.isDone=isDone;
-        this.TaskName="E";
+        this.TaskName=Enums.E.toString();
         this.From=From;
         this.To=To;
     }
@@ -15,9 +15,21 @@ public class Event extends Tasks
     {
         Userinput=Userinput.substring(6).trim(); //get string after Event
         String[] SplitString=Userinput.split("/");
+        this.SplitStringSize=SplitString.length;
+        if (SplitStringSize<4)
+        {
+            this.description=SplitString[0].trim();
+            this.From="";
+            this.To="";
+        }
+        else
+        {
+            this.description=SplitString[0].trim();
+            this.From=SplitString[1].substring(5).trim();
+            this.To=SplitString[2].substring(3).trim();
+        }
         this.description=SplitString[0].trim();
-        this.From=SplitString[1].substring(5).trim();
-        this.To=SplitString[2].substring(3).trim();
+
     }
     @Override
     public String toString()
