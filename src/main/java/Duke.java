@@ -1,9 +1,17 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
 
 public class Duke extends Tasks{
+
+    private UI ui;
+    private Storage storage;
+    private TaskList taskList;
     private static final String LineBreaker = "____________________________________________________________\n";
     private static final String Greeting = "Hello! I'm JohnCena\n" + "What can I do for you?\n";
     private static final String Farewell = "Bye. Hope to see you again soon!\n";
@@ -30,6 +38,7 @@ public class Duke extends Tasks{
         UserCommands.add("deadline");
         UserCommands.add("event");
         UserCommands.add("delete");
+        UserCommands.add("save");
 
         //level 3
         //StoredUserInput.add(new Tasks("read book",false));
@@ -41,6 +50,36 @@ public class Duke extends Tasks{
         StoredUserInput.add(new Deadline("return book",false,"June 6th"));
         StoredUserInput.add(new Event("project meeting ",false,"Aug 6th 2pm","4pm"));
         StoredUserInput.add(new ToDo("join sports club",true));
+    }
+    private static void printFileContents(File F) throws FileNotFoundException {
+//        File f = new File("/data/duke.txt"); // create a File for the given file path
+        Scanner s = new Scanner(F);
+        String New = new String();// create a Scanner using the File as the source
+        while (s.hasNext()) {
+            New=s.nextLine();
+        }
+        s.close();
+    }
+    public static <Task> File UpdateSavedFile(File DukeFile) throws IOException {
+        //System.out.println(DukeFile.getAbsoluteFile());
+        //System.out.println(DukeFile.exists());
+        try{
+            printFileContents(DukeFile);
+        }
+        catch (FileNotFoundException e)
+        {
+            System.out.println("Error: Sorry, I couldn't find the file, But i'll help you navigate to the correct place :D");
+            DukeFile = new File("src/main/java/duke.txt");
+            return DukeFile;
+        }
+        FileWriter FW = new FileWriter(DukeFile);
+        for(Tasks T:StoredUserInput)
+        {
+            FW.write(T.toString());
+            FW.write("\n");
+        }
+        FW.close();
+        return DukeFile;
     }
     private static void ErrorChecker(String UserInput,String Command) throws DukeException
     {
@@ -54,7 +93,7 @@ public class Duke extends Tasks{
         }
         if(IsValidInput)
         {
-            if(UserInput.split(" ").length<2&&!Command.equals("list")&&!Command.equals("bye"))
+            if(UserInput.split(" ").length<2&&!Command.equals("list")&&!Command.equals("bye")&&!Command.equals("save"))
             {
                 //Result="Test";
                 throw new DukeInvalidValueException("OOPS!!! The description of a "+Command+" cannot be empty.");
@@ -75,6 +114,7 @@ public class Duke extends Tasks{
         System.out.print(LineBreaker);
         System.out.print(Greeting);
         Enums TaskEnum;
+        File DukeFile = new File("main/java/duke.txt");
 
         Scanner SCAN = new Scanner(System.in);
         String UserInput = "";
@@ -169,9 +209,11 @@ public class Duke extends Tasks{
                     System.out.println(MsgDelete);
                     System.out.println(Tsk.toString());
                 }
-        }
-            catch (DukeException e) {
+                DukeFile=UpdateSavedFile(DukeFile);
+        } catch (DukeException e) {
                 System.out.println("Error: " + e.getMessage());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
 //            catch (IllegalArgumentException e) {
 //                System.out.println("Invalid command");
