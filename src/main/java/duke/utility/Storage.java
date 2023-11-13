@@ -1,3 +1,10 @@
+package duke.utility;
+
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Tasks;
+import duke.tasks.ToDo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -42,24 +49,39 @@ public class Storage
         LoadedTasks=FileToTasks();
         return LoadedTasks;
     }
+    private String extractBetween(String text, String start, String end) {
+        if (text.contains(start) && text.contains(end)) {
+            return text.substring(text.indexOf(start) + start.length(), text.indexOf(end)).trim();
+        }
+        return "";
+    }
+
+    private String extractAfter(String text, String start, String end) {
+        if (text.contains(start) && text.contains(end)) {
+            return text.substring(text.indexOf(start) + start.length(), text.lastIndexOf(end)).trim();
+        }
+        return "";
+    }
     public ArrayList<Tasks> FileToTasks()
     {
         ArrayList<Tasks> Result = new ArrayList<>();
         for(String s:FileContent){
-            String Discription = s.contains("(")?s.substring(6,s.indexOf("(")).trim():s.substring(6,s.length()).trim();
-            Boolean isDone = s.substring(4,5).equals("X");
-            String by = s.contains("by: ")?s.substring(s.indexOf("by"),s.length()-1):"";
-            String from = s.contains("from: ")?s.substring(s.indexOf("from: "),s.indexOf("to")):"";
-            String to = s.contains("to: ")?s.substring(s.indexOf("to: "),s.length()-2):"";
-            switch (s.substring(1,2)){
+            String description = s.substring(6).split("\\(", 2)[0].trim();
+            boolean isDone = s.substring(4, 5).equals("X");
+
+            String by = extractBetween(s, "by: ", ")");
+            String from = extractBetween(s, "from: ", "to: ");
+            String to = extractAfter(s, "to: ", ")");
+
+            switch (s.substring(1, 2)) {
                 case "T":
-                    Result.add(new ToDo(Discription,isDone));
+                    Result.add(new ToDo(description, isDone));
                     break;
                 case "D":
-                    Result.add(new Deadline(Discription,isDone,by));
+                    Result.add(new Deadline(description, isDone, by));
                     break;
                 case "E":
-                    Result.add(new Event(Discription,isDone,from,to));
+                    Result.add(new Event(description, isDone, from, to));
                     break;
             }
         }

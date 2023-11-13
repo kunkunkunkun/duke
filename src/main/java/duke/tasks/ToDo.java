@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
+package duke.tasks;
 
 public class ToDo extends Tasks
 {

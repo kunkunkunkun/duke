@@ -1,6 +1,14 @@
+import duke.commands.Command;
+import duke.commands.CommandEnum;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Tasks;
+import duke.tasks.ToDo;
+import duke.utility.*;
+
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.PasswordAuthentication;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
@@ -32,9 +40,9 @@ public class Duke extends Tasks
 //        UserCommands.add("save");
 
         //level 3
-        //StoredUserInput.add(new Tasks("read book",false));
-        //StoredUserInput.add(new Tasks ("return book",false));
-        //StoredUserInput.add(new Tasks("buy book",false));
+        //StoredUserInput.add(new duke.tasks.Tasks("read book",false));
+        //StoredUserInput.add(new duke.tasks.Tasks ("return book",false));
+        //StoredUserInput.add(new duke.tasks.Tasks("buy book",false));
 
         //level 4
         StoredUserInput.add(new ToDo("read book",true));
@@ -72,7 +80,7 @@ public class Duke extends Tasks
         FW.close();
         return DukeFile;
     }
-    private static void ErrorChecker(String UserInput,CommandEnum command) throws DukeException
+    private static void ErrorChecker(String UserInput, CommandEnum command) throws DukeException
     {
         if (!command.equals(CommandEnum.LIST) && !command.equals(CommandEnum.BYE) && !command.equals(CommandEnum.SAVE)) {
             if (UserInput.split(" ").length < 2) {

@@ -1,11 +1,14 @@
+package duke.utility;
+
+import duke.tasks.Tasks;
+
 import java.io.File;
-import java.io.FileReader;
 import java.util.ArrayList;
 
 public class TaskList extends Tasks
 {
   protected String filePath="src/main/java/duke.txt";
-  protected ArrayList<Tasks> StoredTaskList = new ArrayList<>();
+  public ArrayList<Tasks> StoredTaskList = new ArrayList<>();
 
     public TaskList(ArrayList<Tasks> LoadedTask) throws DukeException
     {

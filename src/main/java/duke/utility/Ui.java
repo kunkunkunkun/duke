@@ -1,3 +1,7 @@
+package duke.utility;
+
+import duke.tasks.Tasks;
+
 import java.util.Scanner;
 
 public class Ui
@@ -7,7 +11,7 @@ public class Ui
     private static final String Farewell = "Bye. Hope to see you again soon!\n";
     private static final String MsgMark = "Nice! I've marked this task as done:";
     private static final String MsgUnmark = "OK, I've marked this task as not done yet:";
-    private static final String MsgList = "Here are the tasks in your list:";
+    private static final String MsgList = "Here are the duke.tasks in your list:";
     private static final String MsgTaskAdded = "Got it. I've added this task:";
     private static final String MsgDelete = "Noted. I've removed this task:";
     private static final String LoadingError = "Sorry, I couldn't find the file, But i'll help you navigate to the correct place :D";

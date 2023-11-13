@@ -1,3 +1,5 @@
+package duke.commands;
+import duke.utility.DukeException;
 public enum CommandEnum
 {
     LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, SAVE;

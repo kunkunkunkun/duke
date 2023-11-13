@@ -1,3 +1,5 @@
+package duke.commands;
+import duke.utility.*;
 public class ExitCommand extends Command
 {
     @Override

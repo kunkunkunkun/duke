@@ -1,3 +1,9 @@
+package duke.commands;
+
+import duke.tasks.Tasks;
+import duke.utility.TaskList;
+import duke.utility.Ui;
+import duke.utility.Storage;
 import java.io.IOException;
 
 public class AddTaskCommand extends Command
@@ -9,7 +15,7 @@ public class AddTaskCommand extends Command
         this.tsk=tsk;
     }
 
-    public void execute(TaskList tskList, Ui ui,Storage store)
+    public void execute(TaskList tskList, Ui ui, Storage store)
     {
         tskList.AddTask(tsk);
         ui.showTaskAdded();

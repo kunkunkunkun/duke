@@ -1,5 +1,8 @@
-import java.io.IOException;
+package duke.commands;
 
+import java.io.IOException;
+import duke.utility.*;
+import duke.tasks.Tasks;
 public class DeleteTaskCommand extends Command
 {
     private int index;
@@ -9,7 +12,7 @@ public class DeleteTaskCommand extends Command
         this.index=index;
     }
 
-    public void execute(TaskList tskList, Ui ui,Storage store)
+    public void execute(TaskList tskList, Ui ui, Storage store)
     {
         Tasks RemovedTask = tskList.DeleteTask(index);
         //ui.showDeleteMsg(tskList.TaskName);

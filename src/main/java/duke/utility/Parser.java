@@ -1,6 +1,9 @@
-import java.nio.file.attribute.UserDefinedFileAttributeView;
-import java.nio.file.attribute.UserPrincipal;
-import java.util.ArrayList;
+package duke.utility;
+
+import duke.commands.*;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.ToDo;
 
 public class Parser
 {
@@ -28,7 +31,7 @@ public class Parser
         TaskType = TaskType;
     }
 
-//    public Parser(String UserInput)
+//    public duke.utility.Parser(String UserInput)
 //    {
 //        this.UserInput=UserInput;
 //        //this.Index=Integer.parseInt(this.SplitUserInput[1]) - 1;
@@ -75,13 +78,13 @@ public class Parser
             throw new DukeException("The description of a command cannot be empty.");
         }
     }
-//    private Command parseDeadlineCommand(String input) throws DukeException {
+//    private duke.commands.Command parseDeadlineCommand(String input) throws duke.utility.DukeException {
 //        input=input.substring(8);
 //        String[] parts = input.split("/by", 2);
 //        if (parts.length < 2 || parts[1].trim().isEmpty()) {
-//            throw new DukeException("Invalid deadline format. Use 'deadline <description> /by <date>'");
+//            throw new duke.utility.DukeException("Invalid deadline format. Use 'deadline <description> /by <date>'");
 //        }
-//        return new AddTaskCommand(new Deadline(parts[0].trim(), false, parts[1].trim()));
+//        return new duke.commands.AddTaskCommand(new duke.tasks.Deadline(parts[0].trim(), false, parts[1].trim()));
 //    }
     private Command parseDeadlineCommand(String input) throws DukeException {
     String[] parts = input.split("\\s+/by\\s+", 2);
@@ -91,16 +94,16 @@ public class Parser
     return new AddTaskCommand(new Deadline(parts[0].substring(9).trim(), false, parts[1].trim()));
 }
 
-//    private Command parseEventCommand(String input) throws DukeException {
+//    private duke.commands.Command parseEventCommand(String input) throws duke.utility.DukeException {
 //        input=input.substring(5);
 //        String[] parts = input.split("/from");
 //        String from = input.substring(input.indexOf("/from")+5,input.lastIndexOf("/")).trim();
 //        String to = input.substring(input.lastIndexOf("/")+3);
 //        if (parts.length < 2 || parts[1].trim().isEmpty()) {
-//            throw new DukeException("Invalid event format. Use 'event <description> /at <date/time>'");
+//            throw new duke.utility.DukeException("Invalid event format. Use 'event <description> /at <date/time>'");
 //        }
-//        return new AddTaskCommand(new Event(parts[0].trim(),false,from.trim(),to.trim()));
-//        //return new AddTaskCommand(new Event(parts[0].trim(), false, parts[1].trim()), parts[1].trim());
+//        return new duke.commands.AddTaskCommand(new duke.tasks.Event(parts[0].trim(),false,from.trim(),to.trim()));
+//        //return new duke.commands.AddTaskCommand(new duke.tasks.Event(parts[0].trim(), false, parts[1].trim()), parts[1].trim());
 //    }
     private Command parseEventCommand(String input) throws DukeException {
         String[] parts = input.split("\\s+/from\\s+");

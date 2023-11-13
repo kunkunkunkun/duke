@@ -1,3 +1,5 @@
+package duke.tasks;
+
 public class Event extends Tasks
 {
     protected String From;
@@ -13,7 +15,7 @@ public class Event extends Tasks
     @Override
     public void ConvertStringToArrayList(String Userinput)
     {
-        Userinput=Userinput.substring(6).trim(); //get string after Event
+        Userinput=Userinput.substring(6).trim(); //get string after duke.tasks.Event
         String[] SplitString=Userinput.split("/");
         this.SplitStringSize=SplitString.length;
         if (SplitStringSize<4)
