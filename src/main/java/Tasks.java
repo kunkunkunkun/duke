@@ -43,13 +43,5 @@ public class Tasks
     public void ConvertStringToArrayList(String Userinput)
     {
     }
-    public static void PrintSplitString(ArrayList<Tasks> Input)
-    {
-        //int count =1;//String output="";
-        for (int i =0;i<Input.size();i++)
-        {
-            System.out.println(i+1+".["+ Input.get(i).TaskName+"]"+"["+Input.get(i).getStatusIcon()+"] "+ Input.get(i).description);
-        }
-    }
 
 }
