@@ -3,7 +3,10 @@ package duke.utility;
 import duke.commands.*;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
+import duke.tasks.Tasks;
 import duke.tasks.ToDo;
+
+import java.time.format.DateTimeParseException;
 
 public class Parser
 {
@@ -69,10 +72,14 @@ public class Parser
             case "delete":
                 checkInputLength(SplitUserInput);
                 return new DeleteTaskCommand(Integer.parseInt(SplitUserInput[1]));
+            case"search":
+                checkInputLength(SplitUserInput);
+                return new SearchByDateCommand(SplitUserInput[1]);
             default:
                 throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
     }
+
     private void checkInputLength(String[] splitInput) throws DukeException {
         if (splitInput.length < 2 || splitInput[1].trim().isEmpty()) {
             throw new DukeException("The description of a command cannot be empty.");
@@ -87,36 +94,41 @@ public class Parser
 //        return new duke.commands.AddTaskCommand(new duke.tasks.Deadline(parts[0].trim(), false, parts[1].trim()));
 //    }
     private Command parseDeadlineCommand(String input) throws DukeException {
-    String[] parts = input.split("\\s+/by\\s+", 2);
-    if (parts.length < 2 || parts[1].isEmpty()) {
-        throw new DukeException("Invalid deadline format. Use 'deadline <description> /by <date>'");
+        Deadline DL=new Deadline("",false,"");
+    if (input.contains("/by")) {
+        String[] parts = input.split("\\s+/by\\s+", 2);
+        String Description = parts[0];
+        String by = parts[1].trim();
+        try{
+            DL.setDescription(Description.substring(9).trim());
+            DL.setBy(DL.InputTimeConvertor(by.trim()));}
+        catch (DateTimeParseException e){
+            throw new DukeException("Invalid date format. Please use yyyy-MM-dd.");
+        }
+        //throw new DukeException("Invalid deadline format. Use 'deadline <description> /by <date>'");
     }
-    return new AddTaskCommand(new Deadline(parts[0].substring(9).trim(), false, parts[1].trim()));
+    else{throw new DukeException("Invalid deadline format. Use 'deadline <description> /by <date>'");}
+    return new AddTaskCommand(DL);
 }
-
-//    private duke.commands.Command parseEventCommand(String input) throws duke.utility.DukeException {
-//        input=input.substring(5);
-//        String[] parts = input.split("/from");
-//        String from = input.substring(input.indexOf("/from")+5,input.lastIndexOf("/")).trim();
-//        String to = input.substring(input.lastIndexOf("/")+3);
-//        if (parts.length < 2 || parts[1].trim().isEmpty()) {
-//            throw new duke.utility.DukeException("Invalid event format. Use 'event <description> /at <date/time>'");
-//        }
-//        return new duke.commands.AddTaskCommand(new duke.tasks.Event(parts[0].trim(),false,from.trim(),to.trim()));
-//        //return new duke.commands.AddTaskCommand(new duke.tasks.Event(parts[0].trim(), false, parts[1].trim()), parts[1].trim());
-//    }
     private Command parseEventCommand(String input) throws DukeException {
-        String[] parts = input.split("\\s+/from\\s+");
-        if (parts.length < 2 || parts[1].isEmpty()) {
-            throw new DukeException("Invalid event format. Use 'event <description> /from <start time> /to <end time>'");
+        Event Evt = new Event("",false,"","");
+        if (input.contains("/to")&&input.contains("/from"))
+        {
+            String[] parts = input.split("\\s+/from\\s+");
+            String[] timeParts = parts[1].split("\\s+/to\\s+", 2);
+            String Description =parts[0].substring(6).trim();
+            String From =timeParts[0].trim();
+            String To =timeParts[1].trim();
+            try{
+                Evt.setDescription(Description);
+                Evt.setFrom(Evt.InputTimeConvertor(From.trim()));
+                Evt.setTo(Evt.InputTimeConvertor(To.trim()));
+            }
+            catch (DateTimeParseException e){
+                throw new DukeException("Invalid date format. Please use yyyy-MM-dd.");
+            }
         }
-
-        String[] timeParts = parts[1].split("\\s+/to\\s+", 2);
-        if (timeParts.length < 2 || timeParts[1].isEmpty()) {
-            throw new DukeException("Invalid event time format. Include both start and end times.");
-        }
-
-        return new AddTaskCommand(new Event(parts[0].substring(6).trim(), false, timeParts[0].trim(), timeParts[1].trim()));
+        else {throw new DukeException("Invalid event format. Use 'event <description> /from <start time> /to <end time>'");}
+        return new AddTaskCommand(Evt);
     }
-
 }

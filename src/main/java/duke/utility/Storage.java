@@ -38,7 +38,10 @@ public class Storage
         try {
             Scanner SCAN =new Scanner(file);
             while (SCAN.hasNext()){
-                FileContent.add(SCAN.nextLine());
+                String Test = SCAN.nextLine();
+                FileContent.add(Test);
+                System.out.println("Read line: " + Test);
+                //FileContent.add(SCAN.nextLine());
             }
         }
         catch (FileNotFoundException e)
@@ -70,6 +73,7 @@ public class Storage
             boolean isDone = s.substring(4, 5).equals("X");
 
             String by = extractBetween(s, "by: ", ")");
+            System.out.println("Extracted date: " + by);
             String from = extractBetween(s, "from: ", "to: ");
             String to = extractAfter(s, "to: ", ")");
 
@@ -92,6 +96,7 @@ public class Storage
             File file = new File(filePath);
             FileWriter FW = new FileWriter(file);
             for (Tasks T : LoadedTasks) {
+                //System.out.println("\n"+T.toString());
                 FW.write(T.toString());
                 FW.write("\n");
             }

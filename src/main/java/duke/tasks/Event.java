@@ -4,7 +4,24 @@ public class Event extends Tasks
 {
     protected String From;
     protected String To;
-    public Event(String description,Boolean isDone,String From,String To)
+
+    public String getFrom() {
+        return From;
+    }
+
+    public String getTo() {
+        return To;
+    }
+
+    public void setFrom(String from) {
+        From = from;
+    }
+
+    public void setTo(String to) {
+        To = to;
+    }
+
+    public Event(String description, Boolean isDone, String From, String To)
     {
         this.description=description;
         this.isDone=isDone;
@@ -36,6 +53,6 @@ public class Event extends Tasks
     @Override
     public String toString()
     {
-        return "[E]" + super.toString() + " (from: " + From +" to: "+To+ ")";
+        return "[E]" + super.toString() + " (from: " + this.From +" to: "+this.To+ ")";
     }
 }

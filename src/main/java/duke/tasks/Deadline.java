@@ -2,14 +2,22 @@ package duke.tasks;
 
 public class Deadline extends Tasks
 {
-    protected String by;
+    protected String by="1000-01-01";
 
     public Deadline(String description,Boolean isDone,String by)
     {
+        this.by=by;
         this.description=description;
         this.isDone=isDone;
         this.TaskName=Enums.D.toString();
-        this.by=by;
+    }
+
+    public void setBy(String by) {
+        this.by = by;
+    }
+
+    public String getBy() {
+        return by;
     }
 
     @Override
@@ -33,6 +41,7 @@ public class Deadline extends Tasks
     @Override
     public String toString()
     {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        //return "[D][X] join sports club /by 2023-02-12";
+        return "[D]" + super.toString() + " (by: " + this.by + ")";
     }
 }

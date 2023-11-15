@@ -1,5 +1,12 @@
-[T][X] read book
-[D][X] return book (by: June 6th)
-[E][ ] project meeting  (from: Aug 6th 2pm to: 4pm)
-[T][X] join sports club
-[T][ ] 22
+[D][ ] ass (by: 1000-01-01)
+[D][ ] ass (by: 1000-01-01)
+[D][ ] ass (by: 1000-01-01)
+[D][ ] ass (by: 1000-01-01)
+[D][ ] ass (by: 1000-01-01)
+[D][ ] ass (by: 1000-01-01)
+[D][ ] ass (by: Feb 20 2020)
+[D][ ] ass (by: Feb 20 2020)
+[D][ ] ass (by: Feb 21 2020)
+[D][ ] ass (by: Feb 22 2020)
+[D][ ] ass (by: Feb 23 2020)
+[D][ ] ass (by: Feb 24 2020)
