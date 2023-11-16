@@ -1,5 +1,12 @@
 package duke.utility;
-
+/**
+ * Represents a class of test cases
+ * This class is part of the utility pattern implementation.
+ *
+ * @author Yan Kun
+ * @version 1.0
+ * @since 1.0
+ */
 public class LevelTestCases
 {
     public static String Level3_Tasks =

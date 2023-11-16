@@ -1,5 +1,4 @@
 import duke.commands.Command;
-import duke.commands.CommandEnum;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Tasks;
@@ -79,15 +78,6 @@ public class Duke extends Tasks
         }
         FW.close();
         return DukeFile;
-    }
-    private static void ErrorChecker(String UserInput, CommandEnum command) throws DukeException
-    {
-        if (!command.equals(CommandEnum.LIST) && !command.equals(CommandEnum.BYE) && !command.equals(CommandEnum.SAVE)) {
-            if (UserInput.split(" ").length < 2) {
-                throw new DukeException("OOPS!!! The description of a " + command.name().toLowerCase() + " cannot be empty.");
-            }
-        }
-
     }
 
     public Duke(String filePath) {

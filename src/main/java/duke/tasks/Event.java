@@ -1,3 +1,14 @@
+/**
+ * Represents an event task with a start and end date.
+ * This class is a kind of tasks type.
+ * This class extends the {@link Tasks} class and adds support for
+ * event, represented by a pair of start and end date.
+ *
+ * @author Yan Kun
+ * @version 1.0
+ * @since 1.0
+ */
+
 package duke.tasks;
 
 public class Event extends Tasks
@@ -29,27 +40,11 @@ public class Event extends Tasks
         this.From=From;
         this.To=To;
     }
-    @Override
-    public void ConvertStringToArrayList(String Userinput)
-    {
-        Userinput=Userinput.substring(6).trim(); //get string after duke.tasks.Event
-        String[] SplitString=Userinput.split("/");
-        this.SplitStringSize=SplitString.length;
-        if (SplitStringSize<4)
-        {
-            this.description=SplitString[0].trim();
-            this.From="";
-            this.To="";
-        }
-        else
-        {
-            this.description=SplitString[0].trim();
-            this.From=SplitString[1].substring(5).trim();
-            this.To=SplitString[2].substring(3).trim();
-        }
-        this.description=SplitString[0].trim();
-
-    }
+    /**
+     * it's an override function from its super class
+     * Return a string that contains the task details
+     * which is task type, status, description and start time and end time.
+     */
     @Override
     public String toString()
     {

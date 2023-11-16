@@ -1,9 +1,18 @@
+/**
+ * Represents a class that takes in user input
+ * and analyse their input logic then execute with respective commands
+ * This class is part of the utility pattern implementation.
+ *
+ * @author Yan Kun
+ * @version 1.0
+ * @since 1.0
+ */
+
 package duke.utility;
 
 import duke.commands.*;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
-import duke.tasks.Tasks;
 import duke.tasks.ToDo;
 
 import java.time.format.DateTimeParseException;
@@ -34,15 +43,17 @@ public class Parser
         TaskType = TaskType;
     }
 
-//    public duke.utility.Parser(String UserInput)
-//    {
-//        this.UserInput=UserInput;
-//        //this.Index=Integer.parseInt(this.SplitUserInput[1]) - 1;
-//    }
     public Parser()
     {
     }
 
+    /**
+     * Executes the method to analyse user input
+     * This method will ask the user for command input
+     * then it'll split the input to match the task type and run relative command
+     * it'll throw an error if user input message doesn't contain task of certain type
+     * @param Input The user input gets from terminal
+     */
     public Command parse(String Input) throws DukeException
     {
         String[] SplitUserInput = Input.split(" ");
@@ -80,19 +91,24 @@ public class Parser
         }
     }
 
+    /**
+     * Executes the method to check if the split user input has more than 2 parts
+     * it'll throw an error if the input contains less than 2 parts or the second part is empty
+     * @param splitInput The split user input passed from paser method
+     */
     private void checkInputLength(String[] splitInput) throws DukeException {
         if (splitInput.length < 2 || splitInput[1].trim().isEmpty()) {
             throw new DukeException("The description of a command cannot be empty.");
         }
     }
-//    private duke.commands.Command parseDeadlineCommand(String input) throws duke.utility.DukeException {
-//        input=input.substring(8);
-//        String[] parts = input.split("/by", 2);
-//        if (parts.length < 2 || parts[1].trim().isEmpty()) {
-//            throw new duke.utility.DukeException("Invalid deadline format. Use 'deadline <description> /by <date>'");
-//        }
-//        return new duke.commands.AddTaskCommand(new duke.tasks.Deadline(parts[0].trim(), false, parts[1].trim()));
-//    }
+
+    /**
+     * Add a deadline command if the user input meet the correct requirement.
+     * This method check user input contains "/by",
+     * if there isn't, it'll throw and invalid deadline format error
+     * if there is, it'll extract description, by from the input and create a deadline task and add into task list
+     * @param input The list of tasks to which the new task will be added.
+     */
     private Command parseDeadlineCommand(String input) throws DukeException {
         Deadline DL=new Deadline("",false,"");
     if (input.contains("/by")) {
@@ -110,6 +126,15 @@ public class Parser
     else{throw new DukeException("Invalid deadline format. Use 'deadline <description> /by <date>'");}
     return new AddTaskCommand(DL);
 }
+
+    /**
+     * Add an event command if the user input meet the correct requirement.
+     * This method check user input contains "/by",
+     * if there isn't, it'll throw and invalid event format error
+     * if there is, it'll extract description, by, from and to value from the input
+     * and create a deadline task and add into task list
+     * @param input The list of tasks to which the new task will be added.
+     */
     private Command parseEventCommand(String input) throws DukeException {
         Event Evt = new Event("",false,"","");
         if (input.contains("/to")&&input.contains("/from"))

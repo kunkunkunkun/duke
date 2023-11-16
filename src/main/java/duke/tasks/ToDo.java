@@ -1,3 +1,14 @@
+/**
+ * Represents a to-do task with description and status.
+ * This class is a kind of tasks type.
+ * This class extends the {@link Tasks} class and adds support for
+ * to-do, represented by description and status.
+ *
+ * @author Yan Kun
+ * @version 1.0
+ * @since 1.0
+ */
+
 package duke.tasks;
 
 public class ToDo extends Tasks
@@ -9,17 +20,12 @@ public class ToDo extends Tasks
         this.isDone=isDone;
         this.TaskName=Enums.T.toString();
     }
-    ToDo()
-    {
 
-    }
-    @Override
-    public void ConvertStringToArrayList(String Userinput)
-    {
-        Userinput=Userinput.substring(5).trim(); //get string after Todo
-        this.description=Userinput;
-    }
-
+    /**
+     * it's an override function from its super class
+     * Return a string that contains the task details
+     * which is task type, status, description.
+     */
     @Override
     public String toString()
     {

@@ -1,8 +1,19 @@
+/**
+ * Represents a deadline task with a specific due date.
+ * This class is a kind of tasks type.
+ * This class extends the {@link Tasks} class and adds support for
+ * deadlines, represented by a date.
+ *
+ * @author Yan Kun
+ * @version 1.0
+ * @since 1.0
+ */
+
 package duke.tasks;
 
 public class Deadline extends Tasks
 {
-    protected String by="1000-01-01";
+    protected String by;
 
     public Deadline(String description,Boolean isDone,String by)
     {
@@ -20,24 +31,11 @@ public class Deadline extends Tasks
         return by;
     }
 
-    @Override
-    public void ConvertStringToArrayList(String Userinput)
-    {
-
-        Userinput=Userinput.substring(9).trim(); //get string after Todo
-        String[] SplitString=Userinput.split("/by");
-        this.SplitStringSize=SplitString.length;
-        if (SplitStringSize<2)
-        {
-            this.description=SplitString[0].trim();
-            this.by="";
-        }
-        else
-        {
-            this.description=SplitString[0].trim();
-            this.by=SplitString[1].trim();
-        }
-    }
+    /**
+     * it's an override function from its super class
+     * Return a string that contains the task details
+     * which is task type, status, description and by when need to be done.
+     */
     @Override
     public String toString()
     {

@@ -1,3 +1,13 @@
+/**
+ * Represents a class that deals with loading tasks from text file into project
+ * and saving task list to a text file
+ * This class is part of the utility pattern implementation.
+ *
+ * @author Yan Kun
+ * @version 1.0
+ * @since 1.0
+ */
+
 package duke.utility;
 
 import duke.tasks.Deadline;
@@ -31,6 +41,13 @@ public class Storage
         this.filePath = filePath;
     }
 
+    /**
+     * Executes the command to load a text file from given path.
+     * This method will scan the content line-by-line from the given path.
+     * and write the line of text to FileContent
+     * if file is not at the correct place it'll throw an error
+     * returns the task list.
+     */
     public ArrayList<Tasks> load() throws DukeException
     {
         File file = new File(filePath);
@@ -38,10 +55,10 @@ public class Storage
         try {
             Scanner SCAN =new Scanner(file);
             while (SCAN.hasNext()){
-                String Test = SCAN.nextLine();
-                FileContent.add(Test);
-                System.out.println("Read line: " + Test);
-                //FileContent.add(SCAN.nextLine());
+//                String Test = SCAN.nextLine();
+//                FileContent.add(Test);
+//                System.out.println("Read line: " + Test);
+                FileContent.add(SCAN.nextLine());
             }
         }
         catch (FileNotFoundException e)
@@ -52,6 +69,10 @@ public class Storage
         LoadedTasks=FileToTasks();
         return LoadedTasks;
     }
+
+    /**
+     * Extract strings from given start string and end string
+     */
     private String extractBetween(String text, String start, String end) {
         if (text.contains(start) && text.contains(end)) {
             return text.substring(text.indexOf(start) + start.length(), text.indexOf(end)).trim();
@@ -59,12 +80,20 @@ public class Storage
         return "";
     }
 
+    /**
+     * Extract strings from given start string and end string
+     */
     private String extractAfter(String text, String start, String end) {
         if (text.contains(start) && text.contains(end)) {
             return text.substring(text.indexOf(start) + start.length(), text.lastIndexOf(end)).trim();
         }
         return "";
     }
+
+    /**
+     * Access string from FileContent and convert each string to task base on the task type
+     * It'll return the task list
+     */
     public ArrayList<Tasks> FileToTasks()
     {
         ArrayList<Tasks> Result = new ArrayList<>();
@@ -73,7 +102,6 @@ public class Storage
             boolean isDone = s.substring(4, 5).equals("X");
 
             String by = extractBetween(s, "by: ", ")");
-            System.out.println("Extracted date: " + by);
             String from = extractBetween(s, "from: ", "to: ");
             String to = extractAfter(s, "to: ", ")");
 
@@ -91,6 +119,11 @@ public class Storage
         }
         return Result;
     }
+
+    /**
+     * For each tasks in LoadedTasks inside @link Tasklist class
+     * run toString for each task and write to the text file
+     */
     public void save(ArrayList<Tasks> tasks) throws IOException {
         try {
             File file = new File(filePath);
