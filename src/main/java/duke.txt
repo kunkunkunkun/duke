@@ -1,5 +1,11 @@
 [T][X] read book
-[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-[T][X] join sports club
-[T][ ] 22
+[E][ ] project meeting (from: Mar 10 2020 to: Mar 12 2020)
+[T][ ] join sports club
 [E][ ] ass (from: Feb 20 2020 to: Mar 20 2020)
+[T][X] read a lot of books
+[E][ ] ass (from: Feb 20 2020 to: Mar 20 2020)
+[T][ ] hello
+[D][ ] hello (by: Feb 22 2022)
+[E][ ] hello (from: Feb 22 2022 to: Mar 30 2022)
+[T][ ] hello
+[T][ ] hello

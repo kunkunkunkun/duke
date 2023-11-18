@@ -11,34 +11,33 @@
 
 package duke.tasks;
 
-public class Event extends Tasks
-{
-    protected String From;
-    protected String To;
+public class Event extends Tasks {
+    protected String from;
+    protected String to;
 
     public String getFrom() {
-        return From;
+        return from;
     }
 
     public String getTo() {
-        return To;
+        return to;
     }
 
     public void setFrom(String from) {
-        From = from;
+        this.from = from;
     }
 
     public void setTo(String to) {
-        To = to;
+        this.to = to;
     }
 
-    public Event(String description, Boolean isDone, String From, String To)
-    {
+    public Event(String description, Boolean isDone, String from, String to) {
+
         this.description=description;
         this.isDone=isDone;
-        this.TaskName=Enums.E.toString();
-        this.From=From;
-        this.To=To;
+        this.taskName =Enums.E.toString();
+        this.from=from;
+        this.to=to;
     }
     /**
      * it's an override function from its super class
@@ -46,8 +45,7 @@ public class Event extends Tasks
      * which is task type, status, description and start time and end time.
      */
     @Override
-    public String toString()
-    {
-        return "[E]" + super.toString() + " (from: " + this.From +" to: "+this.To+ ")";
+    public String toString() {
+        return "[E]" + super.toString() + " (from: " + this.from +" to: "+this.to+ ")";
     }
 }

@@ -16,14 +16,10 @@ import duke.utility.Ui;
 import duke.utility.Storage;
 import java.io.IOException;
 
-public class AddTaskCommand extends Command
-{
-    private Tasks tsk;
+public class Command_AddTask extends Command {
+    private final Tasks tsk;
 
-    // Class members go here
-
-    public AddTaskCommand(Tasks tsk)
-    {
+    public Command_AddTask(Tasks tsk) {
         this.tsk=tsk;
     }
 
@@ -35,27 +31,26 @@ public class AddTaskCommand extends Command
      * @param ui The ui to print Message
      * @param store The saved task-list text file
      */
-    public void execute(TaskList tskList, Ui ui, Storage store)
-    {
+    public void execute(TaskList tskList, Ui ui, Storage store) {
 
-        tskList.AddTask(tsk);
+        tskList.addTask(tsk);
         ui.showTaskAdded();
-        ui.PrintIndividualTask(tsk);
+        ui.printIndividualTask(tsk);
+
         try {
             store.save(tskList.getAllTasks());
         } catch (IOException e) {
             ui.showError("Failed to save task: " + e.getMessage());
         }
-    }
 
+    }
 
     /**
      * Check if Command should end.
      * Return a boolean value for Parser parse function to evaluate
      */
     @Override
-    public boolean isExit()
-    {
+    public boolean isExit() {
         return false;
     }
 }

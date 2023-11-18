@@ -15,104 +15,107 @@ import java.util.Scanner;
 
 public class Ui
 {
-    private final String LineBreaker = "____________________________________________________________\n";
-    private static final String Greeting = "Hello! I'm JohnCena\n" + "What can I do for you?\n";
-    private static final String Farewell = "Bye. Hope to see you again soon!\n";
-    private static final String MsgMark = "Nice! I've marked this task as done:";
-    private static final String MsgUnmark = "OK, I've marked this task as not done yet:";
-    private static final String MsgList = "Here are the duke.tasks in your list:";
-    private static final String MsgTaskAdded = "Got it. I've added this task:";
-    private static final String MsgDelete = "Noted. I've removed this task:";
-    private static final String LoadingError = "Sorry, I couldn't find the file, But i'll help you navigate to the correct place :D";
+    //******** Generic String ********
+    private static final String LINE_BREAKER = "____________________________________________________________\n";
+    private static final String GREETING = "Hello! I'm JohnCena\n What can I do for you?\n";
+    private static final String FAREWELL = "Bye. Hope to see you again soon!\n";
+
+    //******** Command Message ********
+    private static final String MSG_MARK = "Nice! I've marked this task as done:";
+    private static final String MSG_UNMARK = "OK, I've marked this task as not done yet:";
+    private static final String MSG_LIST = "Here are the duke.tasks in your list:";
+    private static final String MSG_TASK_ADDED = "Got it. I've added this task:";
+    private static final String MSG_DELETE = "Noted. I've removed this task:";
+    private static final String COMMAND_FIND = "Here is the find result:";
+
+    //******** Error Message ********
+    private static final String LOADING_ERROR = "Sorry, I couldn't find the file, "
+                                                + "But i'll help you navigate to the correct place :D";
 
     /** * print specific message */
-    public void ShowWelcomeMsg()
-    {
-        System.out.println(LineBreaker);
-        System.out.println(Greeting);
+    public void ShowWelcomeMsg() {
+        System.out.println(LINE_BREAKER);
+        System.out.println(GREETING);
     }
     /** * print specific message */
-    public void ShowGoodByeMsg()
-    {
-        System.out.println(Farewell);
-    }
-
-    /** * print specific message */
-    public void showMarkedMsg()
-    {
-        System.out.println(MsgMark);
-    }
-
-    /** * print specific message */
-    public void showTaskAdded() {System.out.println(MsgTaskAdded);}
-
-    /** * print specific message */
-    public void showListMsg()
-    {
-        System.out.println(MsgList);
+    public void ShowGoodByeMsg() {
+        System.out.println(FAREWELL);
     }
 
     /** * print specific message */
-    public void showDeleteMsg()
-    {
-        System.out.println(MsgDelete);
+    public void showMarkedMsg() {
+        System.out.println(MSG_MARK);
     }
 
     /** * print specific message */
-    public void showUnmarkedMsg()
-    {
-        System.out.println(MsgUnmark);
+    public void showTaskAdded() {
+        System.out.println(MSG_TASK_ADDED);
+    }
+
+    /** * print specific message */
+    public void showListMsg() {
+        System.out.println(MSG_LIST);
+    }
+
+    /** * print specific message */
+    public void showDeleteMsg() {
+        System.out.println(MSG_DELETE);
+    }
+
+    /** * print specific message */
+    public void showUnmarkedMsg() {
+        System.out.println(MSG_UNMARK);
     }
 
     /** * print level 0 message */
-    public void Lvl0Msg()
-    {
-        System.out.println(LineBreaker);
-        System.out.print(Greeting);
-        System.out.println(LineBreaker);
-        System.out.print(Farewell);
-        System.out.println(LineBreaker);
+    public void Lvl0Msg() {
+        System.out.println(LINE_BREAKER);
+        System.out.print(GREETING);
+        System.out.println(LINE_BREAKER);
+        System.out.print(FAREWELL);
+        System.out.println(LINE_BREAKER);
     }
 
     /** * print specific message */
-    public void showLoadingError()
-    {
-        showError(LoadingError);
+    public void showLoadingError() {
+        showError(LOADING_ERROR);
     }
 
     /** * print specific message */
-    public void PrintTaskMsg(String ToString)
-    {
-        System.out.println("  " + ToString);
+    public void printTaskMsg(String toString) {
+        System.out.println("  " + toString);
     }
 
     /** * print specific message */
-    public void printTaskList(TaskList tskList)
-    {
-        tskList.PrintTaskList(tskList.StoredTaskList);
+    public void printTaskList(TaskList tskList) {
+        tskList.printTaskList(tskList.storedTaskList);
     }
 
     /** * print specific message */
-    public void showLine()
-    {
-        System.out.println("________________________________________________________________");
+    public void showLine() {
+        System.out.println(LINE_BREAKER);
     }
 
     /** * print specific message */
-    public void showError(String Error){
-        System.out.println("Error: "+Error);
+    public void showError(String error){
+        System.out.println("Error: "+error);
+    }
+
+    public void findCommand(){
+        System.out.println(COMMAND_FIND);
     }
 
     /** * read command from user */
-    public String readCommand()
-    {
-        Scanner SCAN = new Scanner(System.in);
-        return SCAN.nextLine().trim();
+    public String readCommand() {
+        Scanner scan = new Scanner(System.in);
+        return scan.nextLine().trim();
     }
 
     /**
      * print all tasks in the task list message
      * it runs tostring function to turn task into string then print out
      * */
-    public void PrintIndividualTask(Tasks tsk){System.out.println(tsk.toString());}
+    public void printIndividualTask(Tasks tsk){
+        System.out.println(tsk.toString());
+    }
 }

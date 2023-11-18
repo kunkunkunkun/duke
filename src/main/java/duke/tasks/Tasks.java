@@ -9,30 +9,27 @@
 
 package duke.tasks;
 
-import duke.utility.DukeException;
-
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class Tasks
-{
+public class Tasks {
     protected String description;
     protected boolean isDone;
 
     private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy");
-    protected String TaskName ="";
+    protected String taskName;
 
     public Tasks(){}
     public Tasks(String description) {
         this.description = description;
         this.isDone = false;
-        this.TaskName = " ";
+        this.taskName = " ";
     }
 
-    public String getDescription() {return description;
+    public String getDescription() {
+        return description;
     }
 
     public boolean isDone() {
@@ -51,10 +48,12 @@ public class Tasks
      * it's a function designed to take in a time value in string
      * convert into "yyyy-MM-dd" format and return in MMM dd yyyy format.
      */
-    public String InputTimeConvertor(String InputTime) throws DateTimeParseException
-    {
-        LocalDate LD = LocalDate.parse(InputTime,INPUT_FORMAT);
-        return LD.format(OUTPUT_FORMAT);
+    public String convertInputTime(String inputTime) throws DateTimeParseException {
+        LocalDate ld = LocalDate.parse(inputTime,INPUT_FORMAT);
+        return ld.format(OUTPUT_FORMAT);
+    }
+    public LocalDate convertStringToDate(String inputTime) throws DateTimeParseException {
+        return LocalDate.parse(inputTime,OUTPUT_FORMAT);
     }
 
     /**
@@ -62,9 +61,7 @@ public class Tasks
      * Return a string that contains the task details
      * which is task status, description.
      */
-    public String toString()
-    {
-        //return this.description;
+    public String toString() {
         return "["+this.getStatusIcon()+"] "+ this.description;
     }
 

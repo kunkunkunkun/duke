@@ -11,16 +11,13 @@
 
 package duke.tasks;
 
-public class Deadline extends Tasks
-{
+public class Deadline extends Tasks {
     protected String by;
-
-    public Deadline(String description,Boolean isDone,String by)
-    {
+    public Deadline(String description,Boolean isDone,String by) {
         this.by=by;
         this.description=description;
         this.isDone=isDone;
-        this.TaskName=Enums.D.toString();
+        this.taskName =Enums.D.toString();
     }
 
     public void setBy(String by) {
@@ -37,9 +34,7 @@ public class Deadline extends Tasks
      * which is task type, status, description and by when need to be done.
      */
     @Override
-    public String toString()
-    {
-        //return "[D][X] join sports club /by 2023-02-12";
+    public String toString() {
         return "[D]" + super.toString() + " (by: " + this.by + ")";
     }
 }

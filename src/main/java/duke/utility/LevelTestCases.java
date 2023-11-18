@@ -7,8 +7,7 @@ package duke.utility;
  * @version 1.0
  * @since 1.0
  */
-public class LevelTestCases
-{
+public class LevelTestCases {
     public static String Level3_Tasks =
             "   Here are the duke.tasks in your list:\n" +
                     "     1.[X] read book\n" +

@@ -11,14 +11,14 @@
 package duke.commands;
 
 import java.io.IOException;
-import duke.utility.*;
-import duke.tasks.Tasks;
-public class DeleteTaskCommand extends Command
+import duke.utility.Ui;
+import duke.utility.Storage;
+import duke.utility.TaskList;
+public class Command_DeleteTask extends Command
 {
-    private int index;
+    private final int index;
 
-    public DeleteTaskCommand(int index)
-    {
+    public Command_DeleteTask(int index) {
         this.index=index;
     }
 
@@ -31,16 +31,17 @@ public class DeleteTaskCommand extends Command
      * @param ui The ui to print Message
      * @param store The saved task-list text file
      */
-    public void execute(TaskList tskList, Ui ui, Storage store)
-    {
-        Tasks RemovedTask = tskList.DeleteTask(index);
-        //ui.showDeleteMsg(tskList.TaskName);
+    public void execute(TaskList tskList, Ui ui, Storage store) {
+
+        tskList.deleteTask(index);
+
         try {
             store.save(tskList.getAllTasks());
             ui.showDeleteMsg();
         } catch (IOException e) {
             ui.showError("Failed to delete task: " + e.getMessage());
         }
+
     }
 
     /**
@@ -48,8 +49,7 @@ public class DeleteTaskCommand extends Command
      * Return a boolean value for Parser parse function to evaluate
      */
     @Override
-    public boolean isExit()
-    {
+    public boolean isExit() {
         return false;
     }
 }

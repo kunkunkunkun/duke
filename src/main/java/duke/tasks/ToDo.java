@@ -11,14 +11,11 @@
 
 package duke.tasks;
 
-public class ToDo extends Tasks
-{
-    //String TaskName = "T";
-    public ToDo(String description,Boolean isDone)
-    {
+public class ToDo extends Tasks {
+    public ToDo(String description,Boolean isDone) {
         this.description=description;
         this.isDone=isDone;
-        this.TaskName=Enums.T.toString();
+        this.taskName =Enums.T.toString();
     }
 
     /**
@@ -27,8 +24,7 @@ public class ToDo extends Tasks
      * which is task type, status, description.
      */
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "[T]" + super.toString();
     }
 

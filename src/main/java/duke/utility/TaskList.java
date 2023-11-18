@@ -16,69 +16,70 @@ import java.util.ArrayList;
 
 public class TaskList extends Tasks
 {
-  protected String filePath="src/main/java/duke.txt";
-  public ArrayList<Tasks> StoredTaskList = new ArrayList<>();
+  protected String filePath= new Storage().filePath;
+  public ArrayList<Tasks> storedTaskList = new ArrayList<>();
 
-    public TaskList(ArrayList<Tasks> LoadedTask) throws DukeException
-    {
-        File F =new File(filePath);
-        this.StoredTaskList=LoadedTask;
-    }
+  public ArrayList<String> notes = new ArrayList<>();
 
-    public TaskList(){
-        filePath="src/main/java/duke.txt";
+    public TaskList(ArrayList<Tasks> loadedTasks) throws DukeException {
+        File f =new File(filePath);
+        this.storedTaskList=loadedTasks;
     }
-
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
-    }
-    public String getFilePath() {
-        return filePath;
+    public TaskList() {
     }
 
     /**
      * Executes the command to add task into task list
      * Return the updated task list
-     * @param TaskToAdd Task to be added into the task
+     *
+     * @param taskToAdd Task to be added into the task
      */
-    public ArrayList<Tasks> AddTask(Tasks TaskToAdd)
-    {
-        StoredTaskList.add(TaskToAdd);
-        return StoredTaskList;
+    public void addTask(Tasks taskToAdd) {
+        storedTaskList.add(taskToAdd);
     }
 
     /**
      * Executes the command to delete task from task list
      * base on user specified index
+     *
      * @param index the index of the task from the task list
      */
-    public Tasks DeleteTask(int index)
-    {
-        Tasks Result=StoredTaskList.get(index-1);
-        StoredTaskList.remove(index-1);
-        return Result;
+    public void deleteTask(int index) {
+
+        Tasks result=storedTaskList.get(index-1);
+        storedTaskList.remove(index-1);
     }
 
     /**
      * Return all the tasks in a list
      */
-    public ArrayList<Tasks> getAllTasks()
-    {
-        return StoredTaskList;
+    public ArrayList<Tasks> getAllTasks() {
+        return storedTaskList;
     }
 
     /**
      * Executes the command to print all task from task list
      * It loops through the task list and do toString to turn task into string
      * and print out
-     * @param Input the index of the task from the task list
+     * @param input the index of the task from the task list
      */
-    public void PrintTaskList(ArrayList<Tasks> Input)
-    {
+    public void printTaskList(ArrayList<Tasks> input) {
+
         int i =1;
-        for (Tasks t:Input)
-        {
+
+        for (Tasks t:input) {
             System.out.println(i+t.toString());
+            i++;
+        }
+    }
+
+    public void printNotes() {
+
+        System.out.println("All your notes are as follow");
+
+        int i =1;
+        for(String s: notes) {
+            System.out.println("["+i+"]"+s);
             i++;
         }
     }

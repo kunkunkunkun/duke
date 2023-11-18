@@ -9,18 +9,19 @@
  */
 
 package duke.commands;
-import duke.utility.*;
+
+import duke.utility.Storage;
+import duke.utility.TaskList;
+import duke.utility.Ui;
+
 import duke.tasks.Tasks;
 
-public class MarkingTaskCommand extends Command
-{
-    private String[] UserInput;
+public class Command_MarkingTask extends Command {
+    private final String[] userInputs;
 
-    public MarkingTaskCommand(String[] UserInput)
-    {
-        this.UserInput=UserInput;
+    public Command_MarkingTask(String[] UserInput) {
+        this.userInputs=UserInput;
     }
-
 
     /**
      * Executes the command to analyse the input and do mark and unmarking function accordingly.
@@ -30,18 +31,20 @@ public class MarkingTaskCommand extends Command
      * @param ui The ui that provides Marked and Unmarked message, and also a function to print individual task.
      * @param store The saved task list text file, provides a function to convert the text file to a task list
      */
-    public void execute(TaskList tskList, Ui ui, Storage store)
-    {
-        Tasks Tsk = tskList.StoredTaskList.get(Integer.parseInt(UserInput[1]) - 1);
-        if(UserInput[0].equals("mark")){
-            Tsk.setDone(true); //
+    public void execute(TaskList tskList, Ui ui, Storage store) {
+
+        Tasks tsk = tskList.storedTaskList.get(Integer.parseInt(userInputs[1]) - 1);
+
+        if(userInputs[0].equals("mark")){
+            tsk.setDone(true); //
             ui.showMarkedMsg();
         }
-        else if (UserInput[0].equals("unmark")){
-            Tsk.setDone(false); //
+        else if (userInputs[0].equals("unmark")){
+            tsk.setDone(false); //
             ui.showUnmarkedMsg();
         }
-        ui.PrintTaskMsg(Tsk.toString());
+
+        ui.printTaskMsg(tsk.toString());
     }
 
     /**
@@ -49,8 +52,7 @@ public class MarkingTaskCommand extends Command
      * Return a boolean value for Parser parse function to evaluate
      */
     @Override
-    public boolean isExit()
-    {
+    public boolean isExit() {
         return false;
     }
 }

@@ -19,12 +19,20 @@ import duke.utility.TaskList;
 import duke.utility.Ui;
 
 import java.time.format.DateTimeParseException;
-public class SearchByDateCommand extends Command
-{
-    private String InputDate;
+public class Command_SearchByDate extends Command {
+    private final String inputDate;
 
-    public SearchByDateCommand(String inputDate) {
-        this.InputDate = inputDate;
+    public Command_SearchByDate(String inputDate) {
+        this.inputDate = inputDate;
+    }
+
+    private boolean isTaskWithDate(Tasks tsk, String date){
+        if(tsk instanceof Deadline&&date.equals(((Deadline) tsk).getBy())){
+            return true;
+        }else if (tsk instanceof Event&&date.equals(((Event) tsk).getFrom())){
+            return true;
+        }else
+            return tsk instanceof Event && date.equals(((Event) tsk).getTo());
     }
 
     /**
@@ -33,27 +41,22 @@ public class SearchByDateCommand extends Command
      * then convert user input to a time format using InputTimeConvertor method in Task glass
      * then search task in task list for deadline and event instance, filter the date that match input date
      *
-     * @param tasks The list of stored tasks.
+     * @param tskList The list of stored tasks.
      * @exception DateTimeParseException catch wrong format date error
      * @exception DukeException throw error message
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage)throws DateTimeParseException, DukeException
+    public void execute(TaskList tskList, Ui ui, Storage store)throws DateTimeParseException, DukeException
     {
-        //storage.load();
         try{
-            for (Tasks t:tasks.StoredTaskList)
-            {
-                String TargetDate=t.InputTimeConvertor(InputDate);
-                if(t instanceof Deadline&&TargetDate.equals(((Deadline) t).getBy())){
-                    System.out.println(t.toString());
-                }
-                if(t instanceof Event &&(TargetDate.equals(((Event) t).getFrom())||TargetDate.equals(((Event) t).getTo()))){
+            for (Tasks t:tskList.storedTaskList) {
+                String TargetDate=t.convertInputTime(inputDate);
+
+                if(isTaskWithDate(t,TargetDate)){
                     System.out.println(t.toString());
                 }
             }
-        }
-        catch (DateTimeParseException e){
+        } catch (DateTimeParseException e){
             throw new DukeException("Invalid date format. Please use yyyy-MM-dd.");
         }
     }

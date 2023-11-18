@@ -10,82 +10,68 @@
 
 package duke.utility;
 
-import duke.commands.*;
+import duke.commands.Command;
+import duke.commands.Command_AddTask;
+import duke.commands.Command_DeleteTask;
+import duke.commands.Command_DoAfter;
+import duke.commands.Command_Exit;
+import duke.commands.Command_Find;
+import duke.commands.Command_List;
+import duke.commands.Command_MarkingTask;
+import duke.commands.Command_SearchByDate;
+
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.ToDo;
 
 import java.time.format.DateTimeParseException;
 
-public class Parser
-{
-    protected String UserInput;
-    protected String TaskType;
-    protected String[] SplitUserInput = new String[100];
-
-    public String getUserInput() {
-        return UserInput;
-    }
-
-    public String getTaskType() {
-        return TaskType;
-    }
-
-    public String[] getSplitUserInput() {
-        return SplitUserInput;
-    }
-
-    public void setUserInput(String userInput) {
-        UserInput = userInput;
-    }
-
-    public void setTaskType(String taskType) {
-        TaskType = TaskType;
-    }
-
-    public Parser()
-    {
-    }
+public class Parser {
 
     /**
      * Executes the method to analyse user input
      * This method will ask the user for command input
      * then it'll split the input to match the task type and run relative command
      * it'll throw an error if user input message doesn't contain task of certain type
-     * @param Input The user input gets from terminal
+     * @param input The user input gets from terminal
      */
-    public Command parse(String Input) throws DukeException
-    {
-        String[] SplitUserInput = Input.split(" ");
-        String TaskType = SplitUserInput[0].trim().toLowerCase();
+    public Command parse(String input) throws DukeException {
 
-        switch (TaskType)
-        {
+        String[] splitUserInput = input.split(" ");
+        String TaskType = splitUserInput[0].trim().toLowerCase();
+
+        switch (TaskType) {
             case "bye":
-                return new ExitCommand();
+                return new Command_Exit();
             case "list":
-                return new ListCommand();
+                return new Command_List();
             case "mark":
-                checkInputLength(SplitUserInput);
-                return new MarkingTaskCommand(SplitUserInput);
+                checkInputLength(splitUserInput);
+                return new Command_MarkingTask(splitUserInput);
             case "unmark":
-                checkInputLength(SplitUserInput);
-                return new MarkingTaskCommand(SplitUserInput);
+                checkInputLength(splitUserInput);
+                return new Command_MarkingTask(splitUserInput);
             case "todo":
-                checkInputLength(SplitUserInput);
-                return new AddTaskCommand(new ToDo(SplitUserInput[1], false));
+                checkInputLength(splitUserInput);
+                return new Command_AddTask(new ToDo(splitUserInput[1], false));
             case "deadline":
-                checkInputLength(SplitUserInput);
-                return parseDeadlineCommand(Input);
+                checkInputLength(splitUserInput);
+                return parseDeadlineCommand(input);
             case "event":
-                checkInputLength(SplitUserInput);
-                return parseEventCommand(Input);
+                checkInputLength(splitUserInput);
+                return parseEventCommand(input);
             case "delete":
-                checkInputLength(SplitUserInput);
-                return new DeleteTaskCommand(Integer.parseInt(SplitUserInput[1]));
+                checkInputLength(splitUserInput);
+                return new Command_DeleteTask(Integer.parseInt(splitUserInput[1]));
             case"search":
-                checkInputLength(SplitUserInput);
-                return new SearchByDateCommand(SplitUserInput[1]);
+                checkInputLength(splitUserInput);
+                return new Command_SearchByDate(splitUserInput[1]);
+            case"do":
+                checkInputLength(splitUserInput);
+                return new Command_DoAfter(input);
+            case"find":
+                checkInputLength(splitUserInput);
+                return new Command_Find(input);
             default:
                 throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
@@ -110,21 +96,25 @@ public class Parser
      * @param input The list of tasks to which the new task will be added.
      */
     private Command parseDeadlineCommand(String input) throws DukeException {
-        Deadline DL=new Deadline("",false,"");
-    if (input.contains("/by")) {
-        String[] parts = input.split("\\s+/by\\s+", 2);
-        String Description = parts[0];
-        String by = parts[1].trim();
-        try{
-            DL.setDescription(Description.substring(9).trim());
-            DL.setBy(DL.InputTimeConvertor(by.trim()));}
-        catch (DateTimeParseException e){
-            throw new DukeException("Invalid date format. Please use yyyy-MM-dd.");
+
+        Deadline dl=new Deadline("",false,"");
+
+        if (input.contains("/by")) {
+            String[] parts = input.split("\\s+/by\\s+", 2);
+            String Description = parts[0];
+            String by = parts[1].trim();
+
+            try{
+                dl.setDescription(Description.substring(9).trim());
+                dl.setBy(dl.convertInputTime(by.trim()));
+            } catch (DateTimeParseException e){
+                throw new DukeException("Invalid date format. Please use yyyy-MM-dd.");
+            }
+        } else{
+            throw new DukeException("Invalid deadline format. Use 'deadline <description> /by <date>'");
         }
-        //throw new DukeException("Invalid deadline format. Use 'deadline <description> /by <date>'");
-    }
-    else{throw new DukeException("Invalid deadline format. Use 'deadline <description> /by <date>'");}
-    return new AddTaskCommand(DL);
+
+    return new Command_AddTask(dl);
 }
 
     /**
@@ -136,24 +126,29 @@ public class Parser
      * @param input The list of tasks to which the new task will be added.
      */
     private Command parseEventCommand(String input) throws DukeException {
-        Event Evt = new Event("",false,"","");
-        if (input.contains("/to")&&input.contains("/from"))
-        {
+
+        Event evt = new Event("",false,"","");
+
+        if (input.contains("/to")&&input.contains("/from")) {
             String[] parts = input.split("\\s+/from\\s+");
             String[] timeParts = parts[1].split("\\s+/to\\s+", 2);
-            String Description =parts[0].substring(6).trim();
-            String From =timeParts[0].trim();
-            String To =timeParts[1].trim();
+            String description =parts[0].substring(6).trim();
+            String from =timeParts[0].trim();
+            String to =timeParts[1].trim();
+
             try{
-                Evt.setDescription(Description);
-                Evt.setFrom(Evt.InputTimeConvertor(From.trim()));
-                Evt.setTo(Evt.InputTimeConvertor(To.trim()));
-            }
-            catch (DateTimeParseException e){
+                evt.setDescription(description);
+                evt.setFrom(evt.convertInputTime(from.trim()));
+                evt.setTo(evt.convertInputTime(to.trim()));
+            } catch (DateTimeParseException e){
                 throw new DukeException("Invalid date format. Please use yyyy-MM-dd.");
             }
+
+        } else {
+            throw new DukeException("Invalid event format. Use 'event <description>"
+                    + "/from <start time> /to <end time>'");
         }
-        else {throw new DukeException("Invalid event format. Use 'event <description> /from <start time> /to <end time>'");}
-        return new AddTaskCommand(Evt);
+
+        return new Command_AddTask(evt);
     }
 }

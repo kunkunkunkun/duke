@@ -9,21 +9,20 @@
  */
 
 package duke.commands;
-import duke.utility.*;
+import duke.utility.Ui;
+import duke.utility.Storage;
+import duke.utility.TaskList;
 
-public class ExitCommand extends Command
-{
+public class Command_Exit extends Command {
     /**
      * Executes the command to print a Goodbye message from ui.
      *
      * @param ui The ui to print Message
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage)
-    {
+    public void execute(TaskList tskList, Ui ui, Storage store) {
         ui.ShowGoodByeMsg();
     }
-
 
     /**
      * Check if Command should end.
@@ -31,6 +30,6 @@ public class ExitCommand extends Command
      */
     @Override
     public boolean isExit() {
-        return false;
+        return true;
     }
 }

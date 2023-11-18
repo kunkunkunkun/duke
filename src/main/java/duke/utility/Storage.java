@@ -25,20 +25,14 @@ import java.util.Scanner;
 public class Storage
 {
     protected String filePath="src/main/java/duke.txt";
-    protected ArrayList<Tasks> LoadedTasks= new ArrayList<>();
-    protected ArrayList<String> FileContent = new ArrayList<>();
+    protected ArrayList<Tasks> loadedTasks= new ArrayList<>();
+    protected ArrayList<String> fileContent = new ArrayList<>();
     Ui ui=new Ui();
 
     public Storage(String filePath) {
         this.filePath = filePath;
     }
-
-    public String getFilePath() {
-        return filePath;
-    }
-
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
+    public Storage() {
     }
 
     /**
@@ -51,29 +45,27 @@ public class Storage
     public ArrayList<Tasks> load() throws DukeException
     {
         File file = new File(filePath);
-        this.LoadedTasks = new ArrayList<>();
+        this.loadedTasks = new ArrayList<>();
+
         try {
-            Scanner SCAN =new Scanner(file);
-            while (SCAN.hasNext()){
-//                String Test = SCAN.nextLine();
-//                FileContent.add(Test);
-//                System.out.println("Read line: " + Test);
-                FileContent.add(SCAN.nextLine());
+            Scanner scan =new Scanner(file);
+
+            while (scan.hasNext()){
+                fileContent.add(scan.nextLine());
             }
-        }
-        catch (FileNotFoundException e)
-        {
+        } catch (FileNotFoundException e) {
             ui.showLoadingError();
             throw new DukeException("");
         }
-        LoadedTasks=FileToTasks();
-        return LoadedTasks;
+
+        loadedTasks=convertFileToTasks();
+        return loadedTasks;
     }
 
     /**
      * Extract strings from given start string and end string
      */
-    private String extractBetween(String text, String start, String end) {
+    private String extractInBetweenString(String text, String start, String end) {
         if (text.contains(start) && text.contains(end)) {
             return text.substring(text.indexOf(start) + start.length(), text.indexOf(end)).trim();
         }
@@ -83,7 +75,7 @@ public class Storage
     /**
      * Extract strings from given start string and end string
      */
-    private String extractAfter(String text, String start, String end) {
+    private String extractEndingString(String text, String start, String end) {
         if (text.contains(start) && text.contains(end)) {
             return text.substring(text.indexOf(start) + start.length(), text.lastIndexOf(end)).trim();
         }
@@ -94,16 +86,16 @@ public class Storage
      * Access string from FileContent and convert each string to task base on the task type
      * It'll return the task list
      */
-    public ArrayList<Tasks> FileToTasks()
+    public ArrayList<Tasks> convertFileToTasks()
     {
         ArrayList<Tasks> Result = new ArrayList<>();
-        for(String s:FileContent){
+        for(String s:fileContent){
             String description = s.substring(6).split("\\(", 2)[0].trim();
             boolean isDone = s.substring(4, 5).equals("X");
 
-            String by = extractBetween(s, "by: ", ")");
-            String from = extractBetween(s, "from: ", "to: ");
-            String to = extractAfter(s, "to: ", ")");
+            String by = extractInBetweenString(s, "by: ", ")");
+            String from = extractInBetweenString(s, "from: ", "to: ");
+            String to = extractEndingString(s, "to: ", ")");
 
             switch (s.substring(1, 2)) {
                 case "T":
@@ -125,12 +117,13 @@ public class Storage
      * run toString for each task and write to the text file
      */
     public void save(ArrayList<Tasks> tasks) throws IOException {
+
         try {
             File file = new File(filePath);
             FileWriter FW = new FileWriter(file);
-            for (Tasks T : LoadedTasks) {
-                //System.out.println("\n"+T.toString());
-                FW.write(T.toString());
+
+            for (Tasks t : loadedTasks) {
+                FW.write(t.toString());
                 FW.write("\n");
             }
             FW.close();

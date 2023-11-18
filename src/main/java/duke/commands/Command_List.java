@@ -9,17 +9,20 @@
  */
 
 package duke.commands;
-import duke.utility.*;
-public class ListCommand extends Command
-{
+
+import duke.utility.Storage;
+import duke.utility.TaskList;
+import duke.utility.Ui;
+public class Command_List extends Command {
     /**
      * Executes the command to print a Goodbye message from ui.
      * @param ui The ui that provide a printTaskList function to print all task
-     * @param tasks The stored task list to be printed out.
+     * @param tskList The stored task list to be printed out.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.printTaskList(tasks);
+    public void execute(TaskList tskList, Ui ui, Storage store) {
+        ui.showListMsg();
+        ui.printTaskList(tskList);
     }
 
     /**

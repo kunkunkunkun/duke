@@ -8,7 +8,6 @@
 
 package duke.tasks;
 
-public enum Enums
-{
+public enum Enums {
     T, D, E
 }
