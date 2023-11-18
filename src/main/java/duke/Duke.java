@@ -1,3 +1,4 @@
+package duke;
 import duke.commands.Command;
 import duke.tasks.Tasks;
 import duke.utility.DukeException;

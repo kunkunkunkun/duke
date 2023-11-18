@@ -36,11 +36,11 @@ public class Command_MarkingTask extends Command {
         Tasks tsk = tskList.storedTaskList.get(Integer.parseInt(userInputs[1]) - 1);
 
         if(userInputs[0].equals("mark")){
-            tsk.setDone(true); //
+            tsk.setIsDone(true); //
             ui.showMarkedMsg();
         }
         else if (userInputs[0].equals("unmark")){
-            tsk.setDone(false); //
+            tsk.setIsDone(false); //
             ui.showUnmarkedMsg();
         }
 

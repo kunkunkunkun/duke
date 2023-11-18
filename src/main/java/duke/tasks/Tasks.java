@@ -28,6 +28,14 @@ public class Tasks {
         this.taskName = " ";
     }
 
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
+    }
+
+    public String getTaskName() {
+        return taskName;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -40,7 +48,7 @@ public class Tasks {
         this.description = description;
     }
 
-    public void setDone(boolean done) {
+    public void setIsDone(boolean done) {
         isDone = done;
     }
 
