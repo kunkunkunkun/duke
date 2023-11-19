@@ -33,6 +33,7 @@ public class Command_DeleteTask extends Command
      */
     public void execute(TaskList tskList, Ui ui, Storage store) {
 
+        assert index>=0&&index<tskList.storedTaskList.size() : "index out of task list size";
         tskList.deleteTask(index);
 
         try {

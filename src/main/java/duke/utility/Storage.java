@@ -55,7 +55,6 @@ public class Storage
             }
         } catch (FileNotFoundException e) {
             ui.showLoadingError();
-            throw new DukeException("");
         }
 
         loadedTasks=convertFileToTasks();

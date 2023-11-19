@@ -31,7 +31,8 @@ public class DeadlineTaskTest {
     void testConvertStringToDate(){
         tsk = new Tasks("TaskTest");
         LocalDate ld = tsk.convertStringToDate("Feb 20 2022");
-        assertEquals(LocalDate.parse("2022-02-20",DateTimeFormatter.ofPattern("yyyy-MM-dd")),ld,"Date is not properly converted into Date");
+        assertEquals(LocalDate.parse("2022-02-20",DateTimeFormatter.ofPattern("yyyy-MM-dd")),ld,
+                "Date is not properly converted into Date");
     }
 
     @Test

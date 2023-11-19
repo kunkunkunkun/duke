@@ -110,6 +110,9 @@ public class Ui
         Scanner scan = new Scanner(System.in);
         return scan.nextLine().trim();
     }
+    public void printNumberOfTask(TaskList tskList){
+        System.out.println("Now you have "+ tskList.storedTaskList.size()+ " tasks in the list");
+    }
 
     /**
      * print all tasks in the task list message

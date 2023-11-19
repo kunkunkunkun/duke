@@ -129,10 +129,10 @@ public class Command_DoAfter extends Command{
                 secondDate = getTaskLocalDate(secondTask);
                 secPartStr=secondTask.getDescription();
             }
-
             if (firstDate.isAfter(secondDate)) {
                 result = "Do " + firstTask.getDescription() + " after " + secPartStr;
             } else {
+                secPartStr = secondDate.toString();
                 throw new DukeException(firstTask.getDescription() + " cannot be placed after " + secondPart);
             }
         }

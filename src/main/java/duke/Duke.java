@@ -16,6 +16,7 @@ public class Duke extends Tasks
     private final Parser parser;
 
     public Duke(String filePath) {
+
         ui = new Ui();
         storage = new Storage(filePath);
         parser=new Parser();

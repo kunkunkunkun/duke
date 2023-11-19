@@ -39,6 +39,7 @@ public class Command_AddTask extends Command {
 
         try {
             store.save(tskList.getAllTasks());
+            ui.printNumberOfTask(tskList);
         } catch (IOException e) {
             ui.showError("Failed to save task: " + e.getMessage());
         }

@@ -36,6 +36,7 @@ public class Parser {
      * @param input The user input gets from terminal
      */
     public Command parse(String input) throws DukeException {
+        assert input!=null:"Please provide some task information";
 
         String[] splitUserInput = input.split(" ");
         String TaskType = splitUserInput[0].trim().toLowerCase();
@@ -111,7 +112,8 @@ public class Parser {
                 throw new DukeException("Invalid date format. Please use yyyy-MM-dd.");
             }
         } else{
-            throw new DukeException("Invalid deadline format. Use 'deadline <description> /by <date>'");
+            throw new DukeException("Invalid deadline format. " +
+                    "Use 'deadline <description> /by <date>'");
         }
 
     return new Command_AddTask(dl);
