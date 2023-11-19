@@ -20,6 +20,7 @@ public class Duke extends Tasks
         ui = new Ui();
         storage = new Storage(filePath);
         parser=new Parser();
+        ui.showDukeLogo();
 
         try {
             tskList = new TaskList(storage.load());

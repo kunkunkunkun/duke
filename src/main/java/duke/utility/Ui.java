@@ -31,6 +31,13 @@ public class Ui
     //******** Error Message ********
     private static final String LOADING_ERROR = "Sorry, I couldn't find the file, "
                                                 + "But i'll help you navigate to the correct place :D";
+    private static final String DUKE_LOGO =
+                  " ____        _        \n"
+                + "|  _ \\ _   _| | _____ \n"
+                + "| | | | | | | |/ / _ \\\n"
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__,_|_|\\_\\___|\n";
+
 
     /** * print specific message */
     public void ShowWelcomeMsg() {
@@ -66,6 +73,8 @@ public class Ui
     public void showUnmarkedMsg() {
         System.out.println(MSG_UNMARK);
     }
+
+    public void showDukeLogo(){System.out.println("Hello from\n" + DUKE_LOGO);}
 
     /** * print level 0 message */
     public void Lvl0Msg() {

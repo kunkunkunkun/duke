@@ -1,14 +1,12 @@
 [T][ ] read book
 [E][X] project meeting (from: Mar 10 2020 to: Mar 12 2020)
 [T][ ] join sports club
-[E][ ] ass (from: Feb 20 2020 to: Mar 20 2020)
-[T][X] read a lot of books
-[E][ ] ass (from: Feb 20 2020 to: Mar 20 2020)
-[T][ ] hello
-[D][ ] hello (by: Feb 22 2022)
-[E][ ] hello (from: Feb 22 2022 to: Mar 30 2022)
-[T][ ] hello
-[T][ ] hello
-[T][ ] test
 [T][ ] test
 [D][ ] test2 (by: Feb 20 2022)
+[E][ ] test3 (from: Feb 20 2022 to: Feb 21 2022)
+[D][ ] testing2 (by: Jan 01 2000)
+[D][ ] testing2 (by: Feb 01 2020)
+[E][ ] test3 (from: Feb 20 2020 to: Feb 21 2020)
+[T][ ] todotest
+[D][ ] test2 (by: Feb 20 2020)
+[E][ ] test3 (from: Feb 20 2020 to: Feb 21 2020)
